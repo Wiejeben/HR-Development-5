@@ -143,8 +143,15 @@ namespace Prototype
                 {
                     string propertyName = NameConversion.SnakeToPascal(column.Key);
 
-                    // Set dynamic field with correct type
+                    // Get dynamic field
                     FieldInfo property = instance.GetType().GetField(propertyName);
+
+                    if (property == null)
+                    {
+                        continue;
+                    }
+
+                    // Set dynamic field value
                     property.SetValue(instance, Convert.ChangeType(column.Value, property.FieldType));
                 }
 

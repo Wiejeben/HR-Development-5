@@ -48,7 +48,7 @@ namespace Prototype
             // Table
             this.QueryString += "FROM `" + this.Builder.Table + "` ";
 
-            // WHERE
+            // Where
             if (this.Builder.Wheres.Count > 0)
             {
                 this.QueryString += "WHERE ";
