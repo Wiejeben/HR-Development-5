@@ -6,15 +6,10 @@ using System.Threading.Tasks;
 
 namespace Prototype
 {
-    class User : Model
+    class User : Model<User>
     {
         public int Id;
         public string Name;
         public string LastName;
-
-        public User()
-        {
-            
-        }
     }
 }

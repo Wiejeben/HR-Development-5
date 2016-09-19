@@ -10,11 +10,22 @@ namespace Prototype
     {
         static void Main(string[] args)
         {
-            User user = new User();
-            user.Name = "Maarten";
-            user.LastName = "De Graaf";
+            using (User data = new User())
+            {
+                foreach (User user in data.All())
+                {
+                    Console.WriteLine(user.Name);
+                }
+            }
 
-            Console.WriteLine(user.Save().ToString());
+            Console.WriteLine("---");
+
+            using (User data = new User())
+            {
+                User user = data.Find(2);
+                
+                Console.WriteLine(user.Name);
+            }
 
             // Halt
             Console.ReadKey();
