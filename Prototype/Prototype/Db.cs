@@ -37,12 +37,18 @@ namespace Prototype
             // Action
             this.QueryString = "SELECT ";
 
+            if (this.Builder.Distrinct)
+            {
+                this.QueryString += "DISTINCT ";
+            }
+
             // Columns
             this.QueryString += "* ";
 
             // Table
             this.QueryString += "FROM `" + this.Builder.Table + "` ";
 
+            // WHERE
             if (this.Builder.Wheres.Count > 0)
             {
                 this.QueryString += "WHERE ";
@@ -61,6 +67,14 @@ namespace Prototype
                 }
             }
 
+            // Limit
+            if (this.Builder.Limit != null)
+            {
+                this.QueryString += "LIMIT " + this.Builder.Limit + " ";
+            }
+
+            // End
+            this.QueryString = this.QueryString.Trim() + ";";
 
             Console.WriteLine(this.QueryString);
             return this.ExecuteGet(this.QueryString);

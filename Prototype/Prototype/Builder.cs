@@ -10,7 +10,7 @@ namespace Prototype
     {
         public string Table = "";
         public bool Distrinct = false;
-        public int Limit;
+        public int? Limit;
         public List<WhereBuilder> Wheres = new List<WhereBuilder>();
     }
 }

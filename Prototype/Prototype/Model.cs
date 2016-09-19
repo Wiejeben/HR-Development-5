@@ -155,7 +155,7 @@ namespace Prototype
         }
 
         // Update a record in the database.
-        public bool Update()
+        private bool Update()
         {
             // Execute UPDATE query
             
@@ -163,7 +163,7 @@ namespace Prototype
         }
 
         // Insert a record in the database.
-        public bool Insert()
+        private bool Insert()
         {
             // Execute INSERT query
 
