@@ -32,7 +32,7 @@ namespace Prototype
             this.Builder = builder;
         }
 
-        public List<Dictionary<string, object>> Get()
+        public List<Dictionary<string, object>> Get(List<string> columns = null)
         {
             // Action
             this.QueryString = "SELECT ";
@@ -42,8 +42,18 @@ namespace Prototype
                 this.QueryString += "DISTINCT ";
             }
 
-            // Columns
-            this.QueryString += "* ";
+            // Add default columns
+            if (columns == null)
+            {
+                columns = new List<string>();
+                columns.Add("*");
+            }
+
+            // Implement columns
+            foreach (string column in columns)
+            {
+                this.QueryString += column + " ";
+            }
 
             // Table
             this.QueryString += "FROM `" + this.Builder.Table + "` ";

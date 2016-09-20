@@ -97,16 +97,23 @@ namespace Prototype
 
         public int Sum(string column)
         {
-            // Execute SUM query on given column
+            var columns = new List<string> { "SUM(" + column + ")" };
 
-            return 0;
+            return Convert.ToInt32(this.Connection.Get(columns).First().Values.First());
+        }
+
+        public int Count(string column = "*")
+        {
+            var columns = new List<string> { "COUNT(" + column + ")" };
+
+            return Convert.ToInt32(this.Connection.Get(columns).First().Values.First());
         }
 
         public int Avg(string column)
         {
-            // Execute AVG query on given column
+            var columns = new List<string> { "AVG(" + column + ")" };
 
-            return 0;
+            return Convert.ToInt32(this.Connection.Get(columns).First().Values.First());
         }
 
         public bool Save()

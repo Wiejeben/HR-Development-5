@@ -10,6 +10,9 @@ namespace Prototype
     {
         static void Main(string[] args)
         {
+            User test = new User();
+            var count = test.Count();
+
             using (User data = new User())
             {
                 foreach (User user in data.All())
