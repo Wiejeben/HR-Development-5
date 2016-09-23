@@ -2,23 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Prototype
 {
     class Model<T> : IDisposable
     {
-        protected Builder Builder = new Builder();
+        protected Builder Builder;
         protected Db Connection;
-        private FieldInfo[] Fields;
-        public bool Exists = false;
+        public bool Exists;
 
         public Model()
         {
+            this.Builder = new Builder(this);
+
             // Automagically define table and column names
-            this.Builder.Table = this.GetTableName();
-            this.Fields = this.GetType().GetFields();
+            this.Builder.Table = this.GenerateTableName();
 
             this.Connection = new Db(this.Builder);
         }
@@ -30,7 +28,7 @@ namespace Prototype
             return this;
         }
 
-        private string GetTableName()
+        private string GenerateTableName()
         {
             return this.GetType().Name.ToLower() + "s";
         }
@@ -81,43 +79,9 @@ namespace Prototype
             return this.Take(1).Get().FirstOrDefault();
         }
 
-        public int Min(string column)
-        {
-            // Execute MIN query on given column
-
-            return 0;
-        }
-
-        public int Max(string column)
-        {
-            // Execute MAX query on given column
-
-            return 0;
-        }
-
-        public int Sum(string column)
-        {
-            var columns = new List<string> { "SUM(" + column + ")" };
-
-            return Convert.ToInt32(this.Connection.Get(columns).First().Values.First());
-        }
-
-        public int Count(string column = "*")
-        {
-            var columns = new List<string> { "COUNT(" + column + ")" };
-
-            return Convert.ToInt32(this.Connection.Get(columns).First().Values.First());
-        }
-
-        public int Avg(string column)
-        {
-            var columns = new List<string> { "AVG(" + column + ")" };
-
-            return Convert.ToInt32(this.Connection.Get(columns).First().Values.First());
-        }
-
         public bool Save()
         {
+            // Does not exist
             if (!this.Exists)
             {
                 return this.Insert();
@@ -140,18 +104,18 @@ namespace Prototype
             // Row
             foreach (Dictionary<string, object> row in rows)
             {
-                T instance = (T) Activator.CreateInstance(this.GetType());
+                var type = this.GetType();
+                T instance = (T) Activator.CreateInstance(type);
                 
                 // Set Exists field to true
-                FieldInfo exists = instance.GetType().GetField("Exists");
-                exists.SetValue(instance, true);
+                type.GetField("Exists").SetValue(instance, true);
 
                 foreach (KeyValuePair<string, object> column in row)
                 {
                     string propertyName = NameConversion.SnakeToPascal(column.Key);
 
                     // Get dynamic field
-                    FieldInfo property = instance.GetType().GetField(propertyName);
+                    PropertyInfo property = type.GetProperty(propertyName);
 
                     if (property == null)
                     {
@@ -159,7 +123,7 @@ namespace Prototype
                     }
 
                     // Set dynamic field value
-                    property.SetValue(instance, Convert.ChangeType(column.Value, property.FieldType));
+                    property.SetValue(instance, Convert.ChangeType(column.Value, property.PropertyType));
                 }
 
                 results.Add(instance);
@@ -179,10 +143,13 @@ namespace Prototype
         // Insert a record in the database.
         private bool Insert()
         {
-            // Execute INSERT query
+            if (!this.Connection.Insert())
+            {
+                return false;
+            }
 
             this.Exists = true;
-            return false;
+            return true;
         }
 
         // Delete a record from the database.

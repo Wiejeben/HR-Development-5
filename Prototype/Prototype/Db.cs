@@ -1,9 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Prototype
 {
@@ -86,13 +83,13 @@ namespace Prototype
             // End
             this.QueryString = this.QueryString.Trim() + ";";
 
-            Console.WriteLine(this.QueryString);
-            return this.ExecuteGet(this.QueryString);
+            return this.Read();
         }
 
-        private List<Dictionary<string, object>> ExecuteGet(string query)
+        private List<Dictionary<string, object>> Read()
         {
-            MySqlCommand cmd = new MySqlCommand(query, this.Connection);
+            Console.WriteLine(this.QueryString);
+            MySqlCommand cmd = new MySqlCommand(this.QueryString, this.Connection);
             var reader = cmd.ExecuteReader();
 
             var results = new List<Dictionary<string, object>>();
@@ -110,6 +107,52 @@ namespace Prototype
             }
 
             return results;
+        }
+
+        private int Execute()
+        {
+            Console.WriteLine(this.QueryString);
+            MySqlCommand cmd = new MySqlCommand(this.QueryString, this.Connection);
+
+            return cmd.ExecuteNonQuery();
+        }
+
+        public bool Insert()
+        {
+            List<KeyValuePair<string, string>> columns = this.Builder.Columns(true);
+
+            // Start query string
+            this.QueryString = "INSERT INTO `" + this.Builder.Table + "` ";
+
+            // Columns
+            this.QueryString += "(";
+
+            foreach (var column in columns)
+            {
+                this.QueryString += "`" + column.Key + "`, ";
+            }
+            this.QueryString = this.QueryString.TrimEnd(new char[] { ',', ' ' });
+
+            this.QueryString += ") ";
+
+            // Values
+            this.QueryString += "VALUES(";
+
+            foreach(var column in columns)
+            {
+                this.QueryString += "'" + column.Value + "', ";
+            }
+            this.QueryString = this.QueryString.TrimEnd(new char[] { ',', ' ' });
+
+            this.QueryString += ")";
+
+            // End query
+            this.QueryString += ";";
+
+            Console.WriteLine(this.QueryString);
+
+            // Rows effected
+            return (this.Execute() > 0);
         }
     }
 }

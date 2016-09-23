@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Prototype
+﻿namespace Prototype
 {
     class User : Model<User>
     {
-        public int Id;
-        public string Name;
-        public string LastName;
+        public int Id { get; private set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
     }
 }

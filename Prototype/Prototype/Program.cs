@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Prototype
 {
@@ -10,24 +6,18 @@ namespace Prototype
     {
         static void Main(string[] args)
         {
-            User test = new User();
-            var count = test.Count();
+            var user = new User();
 
-            using (User data = new User())
+            user.Name = "Kyra";
+            user.LastName = "de Graaf";
+            user.Save();
+
+            using (var entries = new User())
             {
-                foreach (User user in data.All())
+                foreach(User entry in entries.All())
                 {
-                    Console.WriteLine(user.Name);
+                    Console.WriteLine(entry.Name);
                 }
-            }
-
-            Console.WriteLine("---");
-
-            using (User data = new User())
-            {
-                User user = data.Find(2);
-                
-                Console.WriteLine(user.Name);
             }
 
             // Halt
