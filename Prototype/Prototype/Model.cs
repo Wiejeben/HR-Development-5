@@ -127,16 +127,6 @@ namespace Prototype
                     var value = column.Value;
                     var t = property.PropertyType;
 
-                    //if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
-                    //{
-                    //    if (value == null)
-                    //    {
-                    //        return null;
-                    //    }
-
-                    //    t = Nullable.GetUnderlyingType(t);
-                    //}
-
                     // Set dynamic field value
                     property.SetValue(instance, Convert.ChangeType(column.Value, t));
                 }
