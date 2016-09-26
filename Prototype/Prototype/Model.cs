@@ -189,7 +189,7 @@ namespace Prototype
 
         public void Dispose()
         {
-            
+            this.Connection.Dispose();
         }
     }
 }

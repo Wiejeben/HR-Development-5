@@ -5,7 +5,7 @@ using System.Data;
 
 namespace Prototype
 {
-    class Db
+    class Db : IDisposable
     {
         private MySqlConnection Connection = new MySqlConnection();
         private string ConnectionString = "server=localhost;uid=root;pwd=root;database=orm;";
@@ -29,6 +29,7 @@ namespace Prototype
 
             this.Builder = builder;
         }
+        
 
         public List<Dictionary<string, object>> Get(List<string> columns = null)
         {
@@ -193,6 +194,11 @@ namespace Prototype
 
             // Rows effected
             return (this.Execute() > 0);
+        }
+
+        public void Dispose()
+        {
+            this.Connection.Close();
         }
     }
 }
