@@ -57,24 +57,8 @@ namespace Prototype
             // Table
             this.QueryString += "FROM `" + this.Builder.Table + "` ";
 
-            // Where
-            if (this.Builder.Wheres.Count > 0)
-            {
-                this.QueryString += "WHERE ";
-
-                int i = 0;
-                foreach (WhereBuilder where in this.Builder.Wheres)
-                {
-                    if (i > 0)
-                    {
-                        this.QueryString += where.Boolean + " ";
-                    }
-
-                    this.QueryString += "`" + where.Column + "` " + where.Operator + " '" + where.Value + "' ";
-
-                    i++;
-                }
-            }
+            // Wheres
+            this.QueryString += this.BuildWheres();
 
             // Limit
             if (this.Builder.Limit != null)
@@ -86,6 +70,32 @@ namespace Prototype
             this.QueryString = this.QueryString.Trim() + ";";
 
             return this.Read();
+        }
+
+        private string BuildWheres()
+        {
+            string result = "";
+
+            // Where
+            if (this.Builder.Wheres.Count > 0)
+            {
+                result += "WHERE ";
+
+                int i = 0;
+                foreach (WhereBuilder where in this.Builder.Wheres)
+                {
+                    if (i > 0)
+                    {
+                        result += where.Boolean + " ";
+                    }
+
+                    result += "`" + where.Column + "` " + where.Operator + " '" + where.Value + "' ";
+
+                    i++;
+                }
+            }
+
+            return result;
         }
 
         private List<Dictionary<string, object>> Read()
@@ -191,6 +201,17 @@ namespace Prototype
 
             // End query
             this.QueryString += ";";
+
+            // Rows effected
+            return (this.Execute() > 0);
+        }
+
+        public bool Delete()
+        {
+            this.QueryString = "DELETE FROM `" + this.Builder.Table + "` ";
+
+            // Wheres
+            this.QueryString += this.BuildWheres();
 
             // Rows effected
             return (this.Execute() > 0);

@@ -13,9 +13,18 @@ namespace Prototype
             user.Name = "Test worked";
             user.Save();
 
+            Console.WriteLine("Current users: ");
             foreach (User entry in new User().All())
             {
-                Console.WriteLine(entry.Name);
+                Console.WriteLine(entry.Id + " - " + entry.Name + " - " + entry.LastName);
+            }
+
+            user.Delete();
+
+            Console.WriteLine("Current users: ");
+            foreach (User entry in new User().All())
+            {
+                Console.WriteLine(entry.Id + " - " + entry.Name + " - " + entry.LastName);
             }
 
             // Halt

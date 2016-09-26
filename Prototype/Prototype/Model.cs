@@ -178,13 +178,18 @@ namespace Prototype
             return true;
         }
 
-        // Delete a record from the database.
+        // Delete current record from the database.
         public bool Delete()
         {
-            // Execute DELETE query
+            this.Where("id", "=", this.Id.ToString());
+
+            if (!this.Connection.Delete())
+            {
+                return false;
+            }
 
             this.Exists = false;
-            return false;
+            return true;
         }
 
         public void Dispose()
