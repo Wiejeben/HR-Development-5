@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Prototype
 {
@@ -90,20 +91,22 @@ namespace Prototype
         {
             Console.WriteLine(this.QueryString);
             MySqlCommand cmd = new MySqlCommand(this.QueryString, this.Connection);
-            var reader = cmd.ExecuteReader();
 
             var results = new List<Dictionary<string, object>>();
-
-            // Convert Reader to Dictionary
-            while (reader.Read())
+            
+            using (var reader = cmd.ExecuteReader())
             {
-                var result = new Dictionary<string, object>();
-                for (int i = 0; i < reader.FieldCount; i++)
+                // Convert Reader to Dictionary
+                while (reader.Read())
                 {
-                    result.Add(reader.GetName(i), reader.GetValue(i));
-                }
+                    var result = new Dictionary<string, object>();
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        result.Add(reader.GetName(i), reader.GetValue(i));
+                    }
 
-                results.Add(result);
+                    results.Add(result);
+                }
             }
 
             return results;
@@ -119,7 +122,7 @@ namespace Prototype
 
         public bool Insert()
         {
-            List<KeyValuePair<string, string>> columns = this.Builder.Columns(true);
+            Dictionary<string, string> columns = this.Builder.Columns(true);
 
             // Start query string
             this.QueryString = "INSERT INTO `" + this.Builder.Table + "` ";
@@ -149,7 +152,44 @@ namespace Prototype
             // End query
             this.QueryString += ";";
 
-            Console.WriteLine(this.QueryString);
+            // Rows effected
+            return (this.Execute() > 0);
+        }
+
+        public int LastInsertedId()
+        {
+            this.QueryString = "SELECT LAST_INSERT_ID() as `id`;";
+
+            var results = this.Read();
+
+            if (results.Count == 0)
+            {
+                return -1;
+            }
+
+            return Convert.ToInt32(results[0]["id"]);
+        }
+
+        public bool Update()
+        {
+            Dictionary<string, string> columns = this.Builder.Columns(true);
+           
+            // Start query string
+            this.QueryString = "UPDATE `" + this.Builder.Table + "` ";
+
+            // Columns
+            this.QueryString += "SET ";
+
+            foreach (var column in columns)
+            {
+                this.QueryString += "`" + column.Key + "` = '" + column.Value + "', ";
+            }
+            this.QueryString = this.QueryString.TrimEnd(new char[] { ',', ' ' });
+
+            this.QueryString += " WHERE `id` = " + this.Builder.Columns()["id"];
+
+            // End query
+            this.QueryString += ";";
 
             // Rows effected
             return (this.Execute() > 0);

@@ -17,9 +17,9 @@ namespace Prototype
             this.Model = model;
         }
 
-        public List<KeyValuePair<string, string>> Columns(bool excludeWriteOnly = false)
+        public Dictionary<string, string> Columns(bool excludeWriteOnly = false)
         {
-            var results = new List<KeyValuePair<string, string>>();
+            var results = new Dictionary<string, string>();
             var properties = this.Model.GetType().GetProperties();
 
             foreach (var property in properties)
@@ -30,7 +30,14 @@ namespace Prototype
                 }
 
                 var name = NameConversion.PascalToSnake(property.Name);
-                results.Add(new KeyValuePair<string, string>(name, property.GetValue(this.Model).ToString()));
+                var value = property.GetValue(this.Model);
+
+                if (value == null)
+                {
+                    continue;
+                }
+
+                results.Add(name, value.ToString());
             }
 
             return results;

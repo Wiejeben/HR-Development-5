@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prototype;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,6 +8,7 @@ namespace Prototype
 {
     class Model<T> : IDisposable
     {
+        public int Id { get; protected set; }
         protected Builder Builder;
         protected Db Connection;
         public bool Exists;
@@ -122,8 +124,21 @@ namespace Prototype
                         continue;
                     }
 
+                    var value = column.Value;
+                    var t = property.PropertyType;
+
+                    //if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
+                    //{
+                    //    if (value == null)
+                    //    {
+                    //        return null;
+                    //    }
+
+                    //    t = Nullable.GetUnderlyingType(t);
+                    //}
+
                     // Set dynamic field value
-                    property.SetValue(instance, Convert.ChangeType(column.Value, property.PropertyType));
+                    property.SetValue(instance, Convert.ChangeType(column.Value, t));
                 }
 
                 results.Add(instance);
@@ -132,12 +147,32 @@ namespace Prototype
             return results;
         }
 
+        public static object ChangeType(object value, Type conversion)
+        {
+            var t = conversion;
+
+            if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
+            {
+                if (value == null)
+                {
+                    return null;
+                }
+
+                t = Nullable.GetUnderlyingType(t);
+            }
+
+            return Convert.ChangeType(value, t);
+        }
+
         // Update a record in the database.
         private bool Update()
         {
-            // Execute UPDATE query
-            
-            return false;
+            if (!this.Connection.Update())
+            {
+                return false;
+            }
+
+            return true;
         }
 
         // Insert a record in the database.
@@ -148,6 +183,7 @@ namespace Prototype
                 return false;
             }
 
+            this.Id = this.Connection.LastInsertedId();
             this.Exists = true;
             return true;
         }

@@ -7,17 +7,15 @@ namespace Prototype
         static void Main(string[] args)
         {
             var user = new User();
-
-            user.Name = "Kyra";
-            user.LastName = "de Graaf";
+            user.Name = "Test";
             user.Save();
 
-            using (var entries = new User())
+            user.Name = "Test worked";
+            user.Save();
+
+            foreach (User entry in new User().All())
             {
-                foreach(User entry in entries.All())
-                {
-                    Console.WriteLine(entry.Name);
-                }
+                Console.WriteLine(entry.Name);
             }
 
             // Halt
