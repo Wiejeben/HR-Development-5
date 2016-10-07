@@ -254,3 +254,4 @@ paket-files/
 
 # Asta
 *.asta.lock
+*.bak
