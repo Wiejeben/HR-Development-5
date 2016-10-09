@@ -11,9 +11,21 @@ namespace Prototype
     {
         public static string SnakeToPascal(string value)
         {
-            var textInfo = new CultureInfo("en-US").TextInfo;
+            var result = NameConversion.ToTitleCase(value.Replace("_", " "));
 
-            return textInfo.ToTitleCase(value).Replace("_", string.Empty);
+            return result.Replace(" ", string.Empty);
+        }
+
+        private static string ToTitleCase(string str)
+        {
+            var tokens = str.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            for (var i = 0; i < tokens.Length; i++)
+            {
+                var token = tokens[i];
+                tokens[i] = token.Substring(0, 1).ToUpper() + token.Substring(1);
+            }
+
+            return string.Join(" ", tokens);
         }
 
         public static string PascalToSnake(string value)
