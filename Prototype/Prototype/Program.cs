@@ -6,11 +6,14 @@ namespace Prototype
     {
         static void Main(string[] args)
         {
+            // Insert
             var user = new User();
-            user.Name = "Test";
+            user.Name = "Jan";
+            user.LastName = "Jansen";
             user.Save();
 
-            user.Name = "Test worked";
+            // Update
+            user.Name = "Maarten-Jan";
             user.Save();
 
             Console.WriteLine("Current users: ");
@@ -19,6 +22,7 @@ namespace Prototype
                 Console.WriteLine(entry.Id + " - " + entry.Name + " - " + entry.LastName);
             }
 
+            // Delete
             user.Delete();
 
             Console.WriteLine("Current users: ");
