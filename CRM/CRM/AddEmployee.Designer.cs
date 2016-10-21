@@ -31,11 +31,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.bsnInput = new System.Windows.Forms.TextBox();
+            this.nameInput = new System.Windows.Forms.TextBox();
+            this.surnameInput = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.addresses = new System.Windows.Forms.TabPage();
+            this.numberInput = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.addAddress = new System.Windows.Forms.Button();
             this.additionInput = new System.Windows.Forms.TextBox();
@@ -82,8 +83,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.numberInput = new System.Windows.Forms.TextBox();
+            this.saveButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.addresses.SuspendLayout();
             this.degrees.SuspendLayout();
@@ -117,26 +117,27 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Surname";
             // 
-            // textBox1
+            // bsnInput
             // 
-            this.textBox1.Location = new System.Drawing.Point(26, 72);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 3;
+            this.bsnInput.Location = new System.Drawing.Point(26, 72);
+            this.bsnInput.Name = "bsnInput";
+            this.bsnInput.Size = new System.Drawing.Size(100, 22);
+            this.bsnInput.TabIndex = 3;
+            this.bsnInput.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.bsnInput_KeyPress);
             // 
-            // textBox2
+            // nameInput
             // 
-            this.textBox2.Location = new System.Drawing.Point(26, 125);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 4;
+            this.nameInput.Location = new System.Drawing.Point(26, 125);
+            this.nameInput.Name = "nameInput";
+            this.nameInput.Size = new System.Drawing.Size(100, 22);
+            this.nameInput.TabIndex = 4;
             // 
-            // textBox3
+            // surnameInput
             // 
-            this.textBox3.Location = new System.Drawing.Point(26, 182);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 22);
-            this.textBox3.TabIndex = 5;
+            this.surnameInput.Location = new System.Drawing.Point(26, 182);
+            this.surnameInput.Name = "surnameInput";
+            this.surnameInput.Size = new System.Drawing.Size(100, 22);
+            this.surnameInput.TabIndex = 5;
             // 
             // tabControl1
             // 
@@ -173,6 +174,13 @@
             this.addresses.TabIndex = 0;
             this.addresses.Text = "Addresses";
             this.addresses.UseVisualStyleBackColor = true;
+            // 
+            // numberInput
+            // 
+            this.numberInput.Location = new System.Drawing.Point(7, 263);
+            this.numberInput.Name = "numberInput";
+            this.numberInput.Size = new System.Drawing.Size(40, 22);
+            this.numberInput.TabIndex = 17;
             // 
             // button2
             // 
@@ -552,32 +560,26 @@
             this.label11.TabIndex = 10;
             this.label11.Text = "Hour fee";
             // 
-            // button1
+            // saveButton
             // 
-            this.button1.Location = new System.Drawing.Point(26, 383);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // numberInput
-            // 
-            this.numberInput.Location = new System.Drawing.Point(7, 263);
-            this.numberInput.Name = "numberInput";
-            this.numberInput.Size = new System.Drawing.Size(40, 22);
-            this.numberInput.TabIndex = 17;
+            this.saveButton.Location = new System.Drawing.Point(26, 383);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(75, 23);
+            this.saveButton.TabIndex = 7;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // AddEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(714, 428);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.surnameInput);
+            this.Controls.Add(this.nameInput);
+            this.Controls.Add(this.bsnInput);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -600,9 +602,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox bsnInput;
+        private System.Windows.Forms.TextBox nameInput;
+        private System.Windows.Forms.TextBox surnameInput;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage addresses;
         private System.Windows.Forms.TabPage degrees;
@@ -610,7 +612,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader residence;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.TextBox additionInput;
         private System.Windows.Forms.CheckBox residenceCheckbox;
         private System.Windows.Forms.Label label8;

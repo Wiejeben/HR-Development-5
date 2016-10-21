@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="mysql.data">
+      <HintPath>..\..\..\..\..\Downloads\mysql-connector-net-6.0.7-noinstall\mysql.data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -58,6 +61,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Services\ORM\Builder.cs" />
+    <Compile Include="Services\ORM\Db.cs" />
+    <Compile Include="Services\ORM\Model.cs" />
+    <Compile Include="Services\ORM\NameConversion.cs" />
+    <Compile Include="Services\ORM\WhereBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AddEmployee.resx">

@@ -17,22 +17,46 @@ namespace CRM
             InitializeComponent();
         }
 
-        private void addButton_Click(object sender, EventArgs e)
-        {
-            var form = new AddEmployee();
-            form.Show();
-
-            //ListViewItem item = new ListViewItem(new string[] { "12345", "Maarten", "de Graaf" });
-
-            //employeesList.Items.Add(item);
-        }
-
         private void employeesList_SelectedIndexChanged(object sender, EventArgs e)
         {
             bool selected = employeesList.SelectedItems.Count > 0;
 
             modifyButton.Enabled = selected;
             deleteButton.Enabled = selected;
+        }
+        
+        private void LoadEmployeeListView()
+        {
+            // Empty list
+            employeesList.Items.Clear();
+
+            // Load employees
+            new Employee().All().ForEach((Employee employee) =>
+            {
+                ListViewItem item = new ListViewItem(new string[] {
+                    employee.Bsn.ToString(),
+                    employee.Name,
+                    employee.Surname
+                });
+
+                employeesList.Items.Add(item);
+            });
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.LoadEmployeeListView();
+        }
+
+        private void reloadButton_Click(object sender, EventArgs e)
+        {
+            this.LoadEmployeeListView();
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            var form = new AddEmployee();
+            form.Show();
         }
     }
 }

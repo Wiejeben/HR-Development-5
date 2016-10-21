@@ -32,9 +32,10 @@
             this.bsn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.surname = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.addButton = new System.Windows.Forms.Button();
             this.modifyButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
+            this.reloadButton = new System.Windows.Forms.Button();
+            this.addButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // employeesList
@@ -68,17 +69,6 @@
             this.surname.Text = "Surname";
             this.surname.Width = 112;
             // 
-            // addButton
-            // 
-            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addButton.Location = new System.Drawing.Point(12, 12);
-            this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(75, 23);
-            this.addButton.TabIndex = 1;
-            this.addButton.Text = "Add";
-            this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
-            // 
             // modifyButton
             // 
             this.modifyButton.Enabled = false;
@@ -99,17 +89,39 @@
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
             // 
+            // reloadButton
+            // 
+            this.reloadButton.Location = new System.Drawing.Point(558, 12);
+            this.reloadButton.Name = "reloadButton";
+            this.reloadButton.Size = new System.Drawing.Size(75, 23);
+            this.reloadButton.TabIndex = 4;
+            this.reloadButton.Text = "Reload";
+            this.reloadButton.UseVisualStyleBackColor = true;
+            this.reloadButton.Click += new System.EventHandler(this.reloadButton_Click);
+            // 
+            // addButton
+            // 
+            this.addButton.Location = new System.Drawing.Point(13, 12);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(75, 23);
+            this.addButton.TabIndex = 5;
+            this.addButton.Text = "Add";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(647, 334);
+            this.Controls.Add(this.addButton);
+            this.Controls.Add(this.reloadButton);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.modifyButton);
-            this.Controls.Add(this.addButton);
             this.Controls.Add(this.employeesList);
             this.Name = "Form1";
             this.Text = "Employees";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
@@ -120,9 +132,10 @@
         private System.Windows.Forms.ColumnHeader bsn;
         private System.Windows.Forms.ColumnHeader name;
         private System.Windows.Forms.ColumnHeader surname;
-        private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button modifyButton;
         private System.Windows.Forms.Button deleteButton;
+        private System.Windows.Forms.Button reloadButton;
+        private System.Windows.Forms.Button addButton;
     }
 }
 
