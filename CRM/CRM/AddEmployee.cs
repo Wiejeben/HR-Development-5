@@ -227,13 +227,21 @@ namespace CRM
 
         private void addPositionButton_Click(object sender, EventArgs e)
         {
+            var position = new Position { Name = positionInput.Text, Description = descriptionInput.Text, HourFee = float.Parse(hourFeeInput.Text) };
+            position.Save();
+
+            var pivot = new EmployeePosition();
+            pivot.PositionId = position.LastAutoIncrement;
+
             ListViewItem item = new ListViewItem(new string[] {
-                positionInput.Text,
-                descriptionInput.Text,
-                hourFeeInput.Text
+                position.Name,
+                position.Description,
+                position.HourFee.ToString()
             });
+            item.Tag = pivot;
 
             positionsList.Items.Add(item);
+            this.ToBeAdded.Add(pivot);
         }
 
         private void positionsList_SelectedIndexChanged(object sender, EventArgs e)
