@@ -4,9 +4,9 @@ using System.Reflection;
 
 namespace CRM
 {
-    class Builder
+    public class Builder
     {
-        public string Table = "";
+        public string Table = null;
         public bool Distrinct = false;
         public int? Limit;
         public List<WhereBuilder> Wheres = new List<WhereBuilder>();

@@ -61,7 +61,16 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\Degree.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Level.cs" />
+    <Compile Include="Models\Province.cs" />
+    <Compile Include="Models\School.cs" />
+    <Compile Include="Models\Street.cs" />
     <Compile Include="Services\ORM\Builder.cs" />
     <Compile Include="Services\ORM\Db.cs" />
     <Compile Include="Services\ORM\Model.cs" />

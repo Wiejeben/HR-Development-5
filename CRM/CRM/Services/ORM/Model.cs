@@ -6,11 +6,12 @@ using System.Reflection;
 
 namespace CRM
 {
-    class Model : IDisposable
+    public class Model : IDisposable
     {
-        protected Builder Builder;
+        public Builder Builder;
         protected Db Connection;
-        public bool Exists;
+        public bool Exists = false;
+        public Dictionary<string, string> Pivot { get; set; }
 
         public string PrimaryKey;
         public string AutoIncrementColumn;
@@ -36,14 +37,17 @@ namespace CRM
         }
     }
 
-    class Model<T> : Model
+    public class Model<T> : Model
     {
         public Model()
         {
             this.Builder = new Builder(this);
 
             // Automagically define table and column names
-            this.Builder.Table = this.GenerateTableName();
+            if (this.Builder.Table == null)
+            {
+                this.Builder.Table = this.GenerateTableName();
+            }
 
             this.Connection = new Db(this.Builder);
         }
@@ -96,9 +100,9 @@ namespace CRM
             return this.Limit(value);
         }
 
-        public T Find(int id)
+        public T Find(string id)
         {
-            return this.Where("id", "=", id.ToString()).First();
+            return this.Where(this.PrimaryKey, "=", id).First();
         }
 
         public T First()

@@ -36,8 +36,10 @@
             this.surnameInput = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.addresses = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.postalCodeInput = new System.Windows.Forms.TextBox();
             this.numberInput = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.removeAddressButton = new System.Windows.Forms.Button();
             this.addAddress = new System.Windows.Forms.Button();
             this.additionInput = new System.Windows.Forms.TextBox();
             this.residenceCheckbox = new System.Windows.Forms.CheckBox();
@@ -48,8 +50,9 @@
             this.streetInput = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.provinceInput = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.addressesList = new System.Windows.Forms.ListView();
             this.residence = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.postalCode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.addition = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.number = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.street = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -65,13 +68,13 @@
             this.levelLabel = new System.Windows.Forms.Label();
             this.schoolInput = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.degreesList = new System.Windows.Forms.ListView();
             this.school = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.level = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.course = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.addDegree = new System.Windows.Forms.Button();
             this.positions = new System.Windows.Forms.TabPage();
-            this.listView3 = new System.Windows.Forms.ListView();
+            this.positionsList = new System.Windows.Forms.ListView();
             this.position = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.description = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.hourFee = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -84,6 +87,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
+            this.removeDegreeButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.addresses.SuspendLayout();
             this.degrees.SuspendLayout();
@@ -152,8 +156,10 @@
             // 
             // addresses
             // 
+            this.addresses.Controls.Add(this.label14);
+            this.addresses.Controls.Add(this.postalCodeInput);
             this.addresses.Controls.Add(this.numberInput);
-            this.addresses.Controls.Add(this.button2);
+            this.addresses.Controls.Add(this.removeAddressButton);
             this.addresses.Controls.Add(this.addAddress);
             this.addresses.Controls.Add(this.additionInput);
             this.addresses.Controls.Add(this.residenceCheckbox);
@@ -164,7 +170,7 @@
             this.addresses.Controls.Add(this.streetInput);
             this.addresses.Controls.Add(this.label5);
             this.addresses.Controls.Add(this.provinceInput);
-            this.addresses.Controls.Add(this.listView1);
+            this.addresses.Controls.Add(this.addressesList);
             this.addresses.Controls.Add(this.label4);
             this.addresses.Controls.Add(this.countryInput);
             this.addresses.Location = new System.Drawing.Point(4, 25);
@@ -175,43 +181,60 @@
             this.addresses.Text = "Addresses";
             this.addresses.UseVisualStyleBackColor = true;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(119, 126);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(80, 16);
+            this.label14.TabIndex = 19;
+            this.label14.Text = "Postal code";
+            // 
+            // postalCodeInput
+            // 
+            this.postalCodeInput.Location = new System.Drawing.Point(118, 148);
+            this.postalCodeInput.Name = "postalCodeInput";
+            this.postalCodeInput.Size = new System.Drawing.Size(100, 22);
+            this.postalCodeInput.TabIndex = 18;
+            // 
             // numberInput
             // 
-            this.numberInput.Location = new System.Drawing.Point(7, 263);
+            this.numberInput.Location = new System.Drawing.Point(118, 92);
             this.numberInput.Name = "numberInput";
             this.numberInput.Size = new System.Drawing.Size(40, 22);
             this.numberInput.TabIndex = 17;
             // 
-            // button2
+            // removeAddressButton
             // 
-            this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(71, 336);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(71, 23);
-            this.button2.TabIndex = 16;
-            this.button2.Text = "Remove";
-            this.button2.UseVisualStyleBackColor = true;
+            this.removeAddressButton.Enabled = false;
+            this.removeAddressButton.Location = new System.Drawing.Point(397, 336);
+            this.removeAddressButton.Name = "removeAddressButton";
+            this.removeAddressButton.Size = new System.Drawing.Size(80, 23);
+            this.removeAddressButton.TabIndex = 16;
+            this.removeAddressButton.Text = "Remove";
+            this.removeAddressButton.UseVisualStyleBackColor = true;
             // 
             // addAddress
             // 
-            this.addAddress.Location = new System.Drawing.Point(3, 336);
+            this.addAddress.Location = new System.Drawing.Point(242, 91);
             this.addAddress.Name = "addAddress";
             this.addAddress.Size = new System.Drawing.Size(62, 23);
             this.addAddress.TabIndex = 15;
             this.addAddress.Text = "Add";
             this.addAddress.UseVisualStyleBackColor = true;
+            this.addAddress.Click += new System.EventHandler(this.addAddress_Click);
             // 
             // additionInput
             // 
-            this.additionInput.Location = new System.Drawing.Point(53, 263);
+            this.additionInput.Location = new System.Drawing.Point(164, 92);
             this.additionInput.Name = "additionInput";
-            this.additionInput.Size = new System.Drawing.Size(69, 22);
+            this.additionInput.Size = new System.Drawing.Size(47, 22);
             this.additionInput.TabIndex = 13;
             // 
             // residenceCheckbox
             // 
             this.residenceCheckbox.AutoSize = true;
-            this.residenceCheckbox.Location = new System.Drawing.Point(7, 300);
+            this.residenceCheckbox.Location = new System.Drawing.Point(242, 35);
             this.residenceCheckbox.Name = "residenceCheckbox";
             this.residenceCheckbox.Size = new System.Drawing.Size(93, 20);
             this.residenceCheckbox.TabIndex = 12;
@@ -237,7 +260,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(4, 241);
+            this.label7.Location = new System.Drawing.Point(115, 70);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(118, 16);
             this.label7.TabIndex = 8;
@@ -246,7 +269,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(4, 185);
+            this.label6.Location = new System.Drawing.Point(122, 13);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(43, 16);
             this.label6.TabIndex = 6;
@@ -254,7 +277,7 @@
             // 
             // streetInput
             // 
-            this.streetInput.Location = new System.Drawing.Point(3, 207);
+            this.streetInput.Location = new System.Drawing.Point(121, 35);
             this.streetInput.Name = "streetInput";
             this.streetInput.Size = new System.Drawing.Size(100, 22);
             this.streetInput.TabIndex = 5;
@@ -275,27 +298,37 @@
             this.provinceInput.Size = new System.Drawing.Size(100, 22);
             this.provinceInput.TabIndex = 3;
             // 
-            // listView1
+            // addressesList
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.addressesList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.residence,
+            this.postalCode,
             this.addition,
             this.number,
             this.street,
             this.city,
             this.province,
             this.country});
-            this.listView1.Location = new System.Drawing.Point(148, 13);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(329, 346);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.addressesList.FullRowSelect = true;
+            this.addressesList.GridLines = true;
+            this.addressesList.Location = new System.Drawing.Point(6, 176);
+            this.addressesList.MultiSelect = false;
+            this.addressesList.Name = "addressesList";
+            this.addressesList.Size = new System.Drawing.Size(470, 154);
+            this.addressesList.TabIndex = 2;
+            this.addressesList.UseCompatibleStateImageBehavior = false;
+            this.addressesList.View = System.Windows.Forms.View.Details;
+            this.addressesList.SelectedIndexChanged += new System.EventHandler(this.addressesList_SelectedIndexChanged);
             // 
             // residence
             // 
             this.residence.Text = "Residence";
-            this.residence.Width = 81;
+            this.residence.Width = 75;
+            // 
+            // postalCode
+            // 
+            this.postalCode.DisplayIndex = 7;
+            this.postalCode.Text = "Postal code";
             // 
             // addition
             // 
@@ -309,8 +342,8 @@
             // 
             // street
             // 
-            this.street.DisplayIndex = 4;
             this.street.Text = "Street";
+            this.street.Width = 109;
             // 
             // city
             // 
@@ -321,6 +354,7 @@
             // 
             this.province.DisplayIndex = 2;
             this.province.Text = "Province";
+            this.province.Width = 86;
             // 
             // country
             // 
@@ -345,13 +379,14 @@
             // 
             // degrees
             // 
+            this.degrees.Controls.Add(this.removeDegreeButton);
             this.degrees.Controls.Add(this.courseInput);
             this.degrees.Controls.Add(this.label10);
             this.degrees.Controls.Add(this.levelInput);
             this.degrees.Controls.Add(this.levelLabel);
             this.degrees.Controls.Add(this.schoolInput);
             this.degrees.Controls.Add(this.label9);
-            this.degrees.Controls.Add(this.listView2);
+            this.degrees.Controls.Add(this.degreesList);
             this.degrees.Controls.Add(this.addDegree);
             this.degrees.Location = new System.Drawing.Point(4, 25);
             this.degrees.Name = "degrees";
@@ -409,28 +444,32 @@
             this.label9.TabIndex = 8;
             this.label9.Text = "School";
             // 
-            // listView2
+            // degreesList
             // 
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.degreesList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.school,
             this.level,
             this.course});
-            this.listView2.Location = new System.Drawing.Point(154, 6);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(323, 353);
-            this.listView2.TabIndex = 1;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
+            this.degreesList.FullRowSelect = true;
+            this.degreesList.GridLines = true;
+            this.degreesList.Location = new System.Drawing.Point(154, 6);
+            this.degreesList.MultiSelect = false;
+            this.degreesList.Name = "degreesList";
+            this.degreesList.Size = new System.Drawing.Size(323, 324);
+            this.degreesList.TabIndex = 1;
+            this.degreesList.UseCompatibleStateImageBehavior = false;
+            this.degreesList.View = System.Windows.Forms.View.Details;
+            this.degreesList.SelectedIndexChanged += new System.EventHandler(this.degreesList_SelectedIndexChanged);
             // 
             // school
             // 
             this.school.Text = "School";
-            this.school.Width = 112;
+            this.school.Width = 85;
             // 
             // level
             // 
             this.level.Text = "Level";
-            this.level.Width = 107;
+            this.level.Width = 83;
             // 
             // course
             // 
@@ -441,14 +480,15 @@
             // 
             this.addDegree.Location = new System.Drawing.Point(6, 336);
             this.addDegree.Name = "addDegree";
-            this.addDegree.Size = new System.Drawing.Size(75, 23);
+            this.addDegree.Size = new System.Drawing.Size(65, 23);
             this.addDegree.TabIndex = 0;
             this.addDegree.Text = "Add";
             this.addDegree.UseVisualStyleBackColor = true;
+            this.addDegree.Click += new System.EventHandler(this.addDegree_Click);
             // 
             // positions
             // 
-            this.positions.Controls.Add(this.listView3);
+            this.positions.Controls.Add(this.positionsList);
             this.positions.Controls.Add(this.removePositionButton);
             this.positions.Controls.Add(this.addPositionButton);
             this.positions.Controls.Add(this.hourFeeInput);
@@ -465,18 +505,22 @@
             this.positions.Text = "Positions";
             this.positions.UseVisualStyleBackColor = true;
             // 
-            // listView3
+            // positionsList
             // 
-            this.listView3.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.positionsList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.position,
             this.description,
             this.hourFee});
-            this.listView3.Location = new System.Drawing.Point(112, 6);
-            this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(365, 324);
-            this.listView3.TabIndex = 16;
-            this.listView3.UseCompatibleStateImageBehavior = false;
-            this.listView3.View = System.Windows.Forms.View.Details;
+            this.positionsList.FullRowSelect = true;
+            this.positionsList.GridLines = true;
+            this.positionsList.Location = new System.Drawing.Point(112, 6);
+            this.positionsList.MultiSelect = false;
+            this.positionsList.Name = "positionsList";
+            this.positionsList.Size = new System.Drawing.Size(365, 324);
+            this.positionsList.TabIndex = 16;
+            this.positionsList.UseCompatibleStateImageBehavior = false;
+            this.positionsList.View = System.Windows.Forms.View.Details;
+            this.positionsList.SelectedIndexChanged += new System.EventHandler(this.positionsList_SelectedIndexChanged);
             // 
             // position
             // 
@@ -496,9 +540,9 @@
             // removePositionButton
             // 
             this.removePositionButton.Enabled = false;
-            this.removePositionButton.Location = new System.Drawing.Point(408, 336);
+            this.removePositionButton.Location = new System.Drawing.Point(399, 336);
             this.removePositionButton.Name = "removePositionButton";
-            this.removePositionButton.Size = new System.Drawing.Size(69, 23);
+            this.removePositionButton.Size = new System.Drawing.Size(78, 23);
             this.removePositionButton.TabIndex = 15;
             this.removePositionButton.Text = "Remove";
             this.removePositionButton.UseVisualStyleBackColor = true;
@@ -511,6 +555,7 @@
             this.addPositionButton.TabIndex = 14;
             this.addPositionButton.Text = "Add";
             this.addPositionButton.UseVisualStyleBackColor = true;
+            this.addPositionButton.Click += new System.EventHandler(this.addPositionButton_Click);
             // 
             // hourFeeInput
             // 
@@ -570,6 +615,17 @@
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
+            // removeDegreeButton
+            // 
+            this.removeDegreeButton.Enabled = false;
+            this.removeDegreeButton.Location = new System.Drawing.Point(388, 336);
+            this.removeDegreeButton.Name = "removeDegreeButton";
+            this.removeDegreeButton.Size = new System.Drawing.Size(89, 23);
+            this.removeDegreeButton.TabIndex = 14;
+            this.removeDegreeButton.Text = "Remove";
+            this.removeDegreeButton.UseVisualStyleBackColor = true;
+            this.removeDegreeButton.Click += new System.EventHandler(this.removeDegreeButton_Click);
+            // 
             // AddEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -585,6 +641,7 @@
             this.Controls.Add(this.label1);
             this.Name = "AddEmployee";
             this.Text = "Add an employee";
+            this.Load += new System.EventHandler(this.AddEmployee_Load);
             this.tabControl1.ResumeLayout(false);
             this.addresses.ResumeLayout(false);
             this.addresses.PerformLayout();
@@ -610,7 +667,7 @@
         private System.Windows.Forms.TabPage degrees;
         private System.Windows.Forms.TextBox countryInput;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView addressesList;
         private System.Windows.Forms.ColumnHeader residence;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.TextBox additionInput;
@@ -629,7 +686,7 @@
         private System.Windows.Forms.Label levelLabel;
         private System.Windows.Forms.TextBox schoolInput;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ListView degreesList;
         private System.Windows.Forms.ColumnHeader school;
         private System.Windows.Forms.ColumnHeader level;
         private System.Windows.Forms.ColumnHeader course;
@@ -640,7 +697,7 @@
         private System.Windows.Forms.ColumnHeader city;
         private System.Windows.Forms.ColumnHeader province;
         private System.Windows.Forms.ColumnHeader country;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button removeAddressButton;
         private System.Windows.Forms.TabPage positions;
         private System.Windows.Forms.TextBox hourFeeInput;
         private System.Windows.Forms.TextBox positionInput;
@@ -648,12 +705,16 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ListView listView3;
+        private System.Windows.Forms.ListView positionsList;
         private System.Windows.Forms.ColumnHeader position;
         private System.Windows.Forms.ColumnHeader description;
         private System.Windows.Forms.ColumnHeader hourFee;
         private System.Windows.Forms.Button removePositionButton;
         private System.Windows.Forms.Button addPositionButton;
         private System.Windows.Forms.TextBox numberInput;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox postalCodeInput;
+        private System.Windows.Forms.ColumnHeader postalCode;
+        private System.Windows.Forms.Button removeDegreeButton;
     }
 }

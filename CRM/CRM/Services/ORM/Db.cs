@@ -5,7 +5,7 @@ using System.Data;
 
 namespace CRM
 {
-    class Db : IDisposable
+    public class Db : IDisposable
     {
         private MySqlConnection Connection = new MySqlConnection();
         private string ConnectionString = "server=192.168.1.144;uid=root;pwd=root;database=employee_manager;";

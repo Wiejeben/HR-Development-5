@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CRM
 {
-    class WhereBuilder
+    public class WhereBuilder
     {
         public string Column;
         public string Operator;

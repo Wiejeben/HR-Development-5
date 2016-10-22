@@ -47,6 +47,7 @@
             this.employeesList.FullRowSelect = true;
             this.employeesList.GridLines = true;
             this.employeesList.Location = new System.Drawing.Point(12, 41);
+            this.employeesList.MultiSelect = false;
             this.employeesList.Name = "employeesList";
             this.employeesList.Size = new System.Drawing.Size(622, 243);
             this.employeesList.TabIndex = 0;
@@ -78,6 +79,7 @@
             this.modifyButton.TabIndex = 2;
             this.modifyButton.Text = "Modify";
             this.modifyButton.UseVisualStyleBackColor = true;
+            this.modifyButton.Click += new System.EventHandler(this.modifyButton_Click);
             // 
             // deleteButton
             // 
@@ -88,6 +90,7 @@
             this.deleteButton.TabIndex = 3;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // reloadButton
             // 

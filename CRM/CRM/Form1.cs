@@ -16,15 +16,15 @@ namespace CRM
         {
             InitializeComponent();
         }
-
-        private void employeesList_SelectedIndexChanged(object sender, EventArgs e)
+        
+        private void UpdateEmployeeActionButtons()
         {
             bool selected = employeesList.SelectedItems.Count > 0;
 
             modifyButton.Enabled = selected;
             deleteButton.Enabled = selected;
         }
-        
+
         private void LoadEmployeeListView()
         {
             // Empty list
@@ -57,6 +57,50 @@ namespace CRM
         {
             var form = new AddEmployee();
             form.Show();
+        }
+
+        private void employeesList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.UpdateEmployeeActionButtons();
+        }
+
+        private void modifyButton_Click(object sender, EventArgs e)
+        {
+            var employee = this.GetCurrentEmployee();
+
+            if (employee == null)
+            {
+                return;
+            }
+
+            new AddEmployee(employee).Show();
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private Employee GetCurrentEmployee()
+        {
+            // No items selected
+            if (employeesList.SelectedItems.Count <= 0)
+            {
+                return null;
+            }
+
+            var item = employeesList.SelectedItems[0];
+            var bsn = item.SubItems[0].Text;
+            Employee employee = new Employee().Find(bsn);
+
+            // Refresh list when item is not found
+            if (!employee.Exists)
+            {
+                this.LoadEmployeeListView();
+                return null;
+            }
+
+            return employee;
         }
     }
 }
