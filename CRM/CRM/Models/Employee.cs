@@ -65,7 +65,7 @@ namespace CRM
         }
     }
 
-    public class AddressEmployee : Model<AddressEmployee>
+    public class AddressEmployee : Model<AddressEmployee>, Pivot
     {
         public int Bsn { get; set; }
         public int AddressId { get; set; }
@@ -93,6 +93,11 @@ namespace CRM
             this.IdentifyingKeys.Add("bsn");
             this.IdentifyingKeys.Add("address_id");
             this.Builder.Table = "address_employee";
+        }
+
+        public void AssignLeft(int value)
+        {
+            this.Bsn = value;
         }
     }
 

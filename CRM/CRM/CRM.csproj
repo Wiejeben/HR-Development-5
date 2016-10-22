@@ -76,6 +76,7 @@
     <Compile Include="Services\ORM\Db.cs" />
     <Compile Include="Services\ORM\Model.cs" />
     <Compile Include="Services\ORM\NameConversion.cs" />
+    <Compile Include="Services\ORM\Pivot.cs" />
     <Compile Include="Services\ORM\WhereBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

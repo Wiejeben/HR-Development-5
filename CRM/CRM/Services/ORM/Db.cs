@@ -17,8 +17,8 @@ namespace CRM
             // Connect to DB
             //try
             //{
-                Connection.ConnectionString = ConnectionString;
-                Connection.Open();
+                this.Connection.ConnectionString = ConnectionString;
+                this.Connection.Open();
             //}
             //catch (MySqlException ex)
             //{
@@ -133,7 +133,7 @@ namespace CRM
 
         public bool Insert()
         {
-            Dictionary<string, string> columns = this.Builder.Columns(this.Builder.Model.HasAutoIncrement());
+            Dictionary<string, string> columns = this.Builder.Columns(true);
 
             // Start query string
             this.QueryString = "INSERT INTO `" + this.Builder.Table + "` ";

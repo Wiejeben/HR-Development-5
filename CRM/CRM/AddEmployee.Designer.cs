@@ -195,14 +195,14 @@
             this.postalCodeInput.Location = new System.Drawing.Point(118, 148);
             this.postalCodeInput.Name = "postalCodeInput";
             this.postalCodeInput.Size = new System.Drawing.Size(100, 22);
-            this.postalCodeInput.TabIndex = 18;
+            this.postalCodeInput.TabIndex = 6;
             // 
             // numberInput
             // 
             this.numberInput.Location = new System.Drawing.Point(118, 92);
             this.numberInput.Name = "numberInput";
             this.numberInput.Size = new System.Drawing.Size(40, 22);
-            this.numberInput.TabIndex = 17;
+            this.numberInput.TabIndex = 4;
             // 
             // removeAddressButton
             // 
@@ -210,7 +210,7 @@
             this.removeAddressButton.Location = new System.Drawing.Point(397, 336);
             this.removeAddressButton.Name = "removeAddressButton";
             this.removeAddressButton.Size = new System.Drawing.Size(80, 23);
-            this.removeAddressButton.TabIndex = 16;
+            this.removeAddressButton.TabIndex = 10;
             this.removeAddressButton.Text = "Remove";
             this.removeAddressButton.UseVisualStyleBackColor = true;
             this.removeAddressButton.Click += new System.EventHandler(this.removeAddressButton_Click);
@@ -220,7 +220,7 @@
             this.addAddress.Location = new System.Drawing.Point(242, 91);
             this.addAddress.Name = "addAddress";
             this.addAddress.Size = new System.Drawing.Size(62, 23);
-            this.addAddress.TabIndex = 15;
+            this.addAddress.TabIndex = 8;
             this.addAddress.Text = "Add";
             this.addAddress.UseVisualStyleBackColor = true;
             this.addAddress.Click += new System.EventHandler(this.addAddress_Click);
@@ -230,7 +230,7 @@
             this.additionInput.Location = new System.Drawing.Point(164, 92);
             this.additionInput.Name = "additionInput";
             this.additionInput.Size = new System.Drawing.Size(47, 22);
-            this.additionInput.TabIndex = 13;
+            this.additionInput.TabIndex = 5;
             // 
             // residenceCheckbox
             // 
@@ -238,7 +238,7 @@
             this.residenceCheckbox.Location = new System.Drawing.Point(242, 35);
             this.residenceCheckbox.Name = "residenceCheckbox";
             this.residenceCheckbox.Size = new System.Drawing.Size(93, 20);
-            this.residenceCheckbox.TabIndex = 12;
+            this.residenceCheckbox.TabIndex = 7;
             this.residenceCheckbox.Text = "Residence";
             this.residenceCheckbox.UseVisualStyleBackColor = true;
             // 
@@ -256,7 +256,7 @@
             this.cityInput.Location = new System.Drawing.Point(3, 148);
             this.cityInput.Name = "cityInput";
             this.cityInput.Size = new System.Drawing.Size(100, 22);
-            this.cityInput.TabIndex = 9;
+            this.cityInput.TabIndex = 2;
             // 
             // label7
             // 
@@ -281,7 +281,7 @@
             this.streetInput.Location = new System.Drawing.Point(121, 35);
             this.streetInput.Name = "streetInput";
             this.streetInput.Size = new System.Drawing.Size(100, 22);
-            this.streetInput.TabIndex = 5;
+            this.streetInput.TabIndex = 3;
             // 
             // label5
             // 
@@ -297,7 +297,7 @@
             this.provinceInput.Location = new System.Drawing.Point(3, 92);
             this.provinceInput.Name = "provinceInput";
             this.provinceInput.Size = new System.Drawing.Size(100, 22);
-            this.provinceInput.TabIndex = 3;
+            this.provinceInput.TabIndex = 1;
             // 
             // addressesList
             // 
@@ -316,7 +316,7 @@
             this.addressesList.MultiSelect = false;
             this.addressesList.Name = "addressesList";
             this.addressesList.Size = new System.Drawing.Size(470, 154);
-            this.addressesList.TabIndex = 2;
+            this.addressesList.TabIndex = 9;
             this.addressesList.UseCompatibleStateImageBehavior = false;
             this.addressesList.View = System.Windows.Forms.View.Details;
             this.addressesList.SelectedIndexChanged += new System.EventHandler(this.addressesList_SelectedIndexChanged);

@@ -12,8 +12,8 @@ namespace CRM
 {
     public partial class AddEmployee : Form
     {
-        private List<Model> ToBeRemoved = new List<Model>();
-        private List<Model> ToBeAdded = new List<Model>();
+        private List<Pivot> ToBeRemoved = new List<Pivot>();
+        private List<Pivot> ToBeAdded = new List<Pivot>();
         private Employee Employee;
 
         public AddEmployee()
@@ -56,7 +56,7 @@ namespace CRM
                     address.Street.City.Province.Name,
                     address.Street.City.Province.Country.Name
                 });
-                item.Tag = address;
+                item.Tag = address.Pivot;
 
                 addressesList.Items.Add(item);
             }
@@ -69,7 +69,7 @@ namespace CRM
                     degree.Level.Name,
                     degree.Course.Name
                 });
-                item.Tag = degree;
+                item.Tag = degree.Pivot;
 
                 degreesList.Items.Add(item);
             }
@@ -82,7 +82,7 @@ namespace CRM
                     position.Description,
                     position.HourFee.ToString()
                 });
-                item.Tag = position;
+                item.Tag = position.Pivot;
 
                 positionsList.Items.Add(item);
             }
@@ -101,10 +101,18 @@ namespace CRM
             employee.Surname = surnameInput.Text;
 
             employee.Save();
-
-            foreach (Model model in this.ToBeRemoved)
+            
+            // Remove awaiting pivot tables
+            foreach (Pivot model in this.ToBeRemoved)
             {
-                model.Pivot.Delete();
+                model.Delete();
+            }
+
+            // Add awaiting pivot tables
+            foreach (Pivot model in this.ToBeAdded)
+            {
+                model.AssignLeft(employee.Bsn);
+                model.Save();
             }
 
             this.Close();
@@ -117,18 +125,45 @@ namespace CRM
 
         private void addAddress_Click(object sender, EventArgs e)
         {
+            var country = new Country { Name = countryInput.Text };
+            int countryId = country.FindOrInsert(new Dictionary<string, string> { { "name", country.Name } });
+
+            var province = new Province { Name = provinceInput.Text, CountryId = countryId };
+            int provinceId = province.FindOrInsert(new Dictionary<string, string> { { "name", province.Name }, { "country_id", province.CountryId.ToString() } });
+
+            var city = new City { Name = cityInput.Text, ProvinceId = provinceId };
+            int cityId = city.FindOrInsert(new Dictionary<string, string> { { "name", city.Name }, { "province_id", city.ProvinceId.ToString() } });
+
+            var street = new Street { Name = streetInput.Text, CityId = cityId };
+            int streetId = street.FindOrInsert(new Dictionary<string, string> { { "name", street.Name }, { "city_id", street.CityId.ToString() } });
+
+            var address = new Address();
+
+            address.Addition = additionInput.Text;
+            address.Number = Convert.ToInt32(numberInput.Text);
+            address.PostalCode = postalCodeInput.Text;
+            address.StreetId = streetId;
+
+            address.Save();
+
+            var pivot = new AddressEmployee();
+            pivot.AddressId = address.LastAutoIncrement;
+            pivot.Residence = residenceCheckbox.Checked;
+
             ListViewItem item = new ListViewItem(new string[] {
                 residenceCheckbox.Checked.ToString(),
-                postalCodeInput.Text,
+                country.Name,
                 additionInput.Text,
                 numberInput.Text,
-                streetInput.Text,
-                cityInput.Text,
-                provinceInput.Text,
-                countryInput.Text
+                street.Name,
+                city.Name,
+                province.Name,
+                country.Name
             });
+            item.Tag = pivot;
 
             addressesList.Items.Add(item);
+            this.ToBeAdded.Add(pivot);
         }
 
         private void UpdateAddressActionButtons()
@@ -209,7 +244,7 @@ namespace CRM
                 return;
             }
 
-            this.ToBeRemoved.Add((Degree) item.Tag);
+            this.ToBeRemoved.Add((Pivot) item.Tag);
 
             item.Remove();
         }
@@ -223,7 +258,7 @@ namespace CRM
                 return;
             }
 
-            this.ToBeRemoved.Add((Position)item.Tag);
+            this.ToBeRemoved.Add((Pivot) item.Tag);
 
             item.Remove();
         }
@@ -237,7 +272,7 @@ namespace CRM
                 return;
             }
 
-            this.ToBeRemoved.Add((Address)item.Tag);
+            this.ToBeRemoved.Add((Pivot) item.Tag);
 
             item.Remove();
         }

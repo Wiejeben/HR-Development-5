@@ -15,6 +15,7 @@ namespace CRM
 
         public List<string> IdentifyingKeys = new List<string>();
         public string AutoIncrementColumn;
+        public int LastAutoIncrement;
 
         public bool HasAutoIncrement()
         {
@@ -74,8 +75,7 @@ namespace CRM
             if (this.HasAutoIncrement())
             {
                 // TODO: Assign value to auto-incremented column
-                // this.Id = this.Connection.LastInsertedId();
-                throw new Exception("Not yet updated to work with dynamic auto increment.");
+                this.LastAutoIncrement = this.Connection.LastInsertedId();
             }
 
             this.Exists = true;
@@ -129,14 +129,14 @@ namespace CRM
 
         public Model<T> Where(string column, string @operator, string value, string boolean = "and")
         {
-            WhereBuilder build = new WhereBuilder();
+            WhereBuilder where = new WhereBuilder();
 
-            build.Column = column;
-            build.Operator = @operator;
-            build.Value = value;
-            build.Boolean = boolean;
+            where.Column = column;
+            where.Operator = "=";
+            where.Value = value;
+            where.Boolean = "and";
 
-            this.Builder.Wheres.Add(build);
+            this.Builder.Wheres.Add(where);
 
             return this;
         }
@@ -178,6 +178,25 @@ namespace CRM
         {
             // Execute SELECT query          
             return this.Generate(this.Connection.Get());
+        }
+
+        public int FindOrInsert(Dictionary<string, string> columns)
+        {
+            foreach (KeyValuePair<string, string> column in columns)
+            {
+                this.Where(column.Key, "=", column.Value);
+            }
+
+            var results = this.Connection.Get();
+            
+            if (results.Count > 0)
+            {
+                return Convert.ToInt32(results.First()[this.AutoIncrementColumn]);
+            }
+
+            this.Save();
+
+            return this.LastAutoIncrement;
         }
 
         private List<T> Generate(List<Dictionary<string, object>> rows)

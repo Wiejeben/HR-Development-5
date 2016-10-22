@@ -15,7 +15,6 @@ namespace CRM
         public string PostalCode { get; set; }
 
         private Street _street;
-
         public Street Street
         {
             get
