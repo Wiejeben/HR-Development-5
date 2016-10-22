@@ -67,6 +67,18 @@ namespace CRM
 
                 degreesList.Items.Add(item);
             }
+
+            // Positions
+            foreach (Position position in this.Employee.Positions())
+            {
+                ListViewItem item = new ListViewItem(new string[] {
+                    position.Name,
+                    position.Description,
+                    position.HourFee.ToString()
+                });
+
+                positionsList.Items.Add(item);
+            }
         }
 
         private void saveButton_Click(object sender, EventArgs e)

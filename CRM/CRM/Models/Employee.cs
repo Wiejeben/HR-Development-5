@@ -35,7 +35,7 @@ namespace CRM
         }
     }
 
-    public class AddressDegree : Model<AddressDegree>
+    public class EmployeeDegree : Model<EmployeeDegree>
     {
         public int EmployeeBsn { get; set; }
         public int DegreeId { get; set; }
@@ -57,9 +57,37 @@ namespace CRM
             }
         }
 
-        public AddressDegree()
+        public EmployeeDegree()
         {
             this.Builder.Table = "employee_degree";
+        }
+    }
+
+    public class EmployeePosition : Model<EmployeePosition>
+    {
+        public int Bsn { get; set; }
+        public int PositionId { get; set; }
+
+        private Position _position;
+        public Position Position
+        {
+            get
+            {
+                if (this._position == null)
+                {
+                    var position = new Position().Find(this.PositionId.ToString());
+                    position.Pivot = this.Builder.Columns(true);
+
+                    this._position = position;
+                }
+
+                return this._position;
+            }
+        }
+
+        public EmployeePosition()
+        {
+            this.Builder.Table = "employee_position";
         }
     }
 
@@ -78,9 +106,7 @@ namespace CRM
         {
             var results = new List<Address>();
 
-            var model = new AddressEmployee();
-
-            model.Where("bsn", "=", this.Bsn.ToString());
+            var model = new AddressEmployee().Where("bsn", "=", this.Bsn.ToString());
             var pivots = model.Get();
 
             foreach (AddressEmployee pivot in pivots)
@@ -95,14 +121,29 @@ namespace CRM
         {
             var results = new List<Degree>();
 
-            var model = new AddressDegree();
+            var model = new EmployeeDegree().Where("employee_bsn", "=", this.Bsn.ToString());
 
-            model.Where("employee_bsn", "=", this.Bsn.ToString());
             var pivots = model.Get();
 
-            foreach (AddressDegree pivot in pivots)
+            foreach (EmployeeDegree pivot in pivots)
             {
                 results.Add(pivot.Degree);
+            }
+
+            return results;
+        }
+
+        public List<Position> Positions()
+        {
+            var results = new List<Position>();
+
+            var model = new EmployeePosition().Where("bsn", "=", this.Bsn.ToString());
+
+            var pivots = model.Get();
+
+            foreach (EmployeePosition pivot in pivots)
+            {
+                results.Add(pivot.Position);
             }
 
             return results;

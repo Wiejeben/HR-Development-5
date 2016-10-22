@@ -68,6 +68,7 @@
     <Compile Include="Models\Degree.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Level.cs" />
+    <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Province.cs" />
     <Compile Include="Models\School.cs" />
     <Compile Include="Models\Street.cs" />
