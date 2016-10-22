@@ -101,7 +101,7 @@ namespace CRM
         }
     }
 
-    public class EmployeeDegree : Model<EmployeeDegree>
+    public class EmployeeDegree : Model<EmployeeDegree>, Pivot
     {
         public int EmployeeBsn { get; set; }
         public int DegreeId { get; set; }
@@ -128,6 +128,11 @@ namespace CRM
             this.IdentifyingKeys.Add("employee_bsn");
             this.IdentifyingKeys.Add("degree_id");
             this.Builder.Table = "employee_degree";
+        }
+
+        public void AssignLeft(int value)
+        {
+            this.EmployeeBsn = value;
         }
     }
 

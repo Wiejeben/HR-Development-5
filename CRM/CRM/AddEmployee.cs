@@ -194,13 +194,30 @@ namespace CRM
 
         private void addDegree_Click(object sender, EventArgs e)
         {
+            var school = new School { Name = schoolInput.Text };
+            int schoolId = school.FindOrInsert(new Dictionary<string, string> { { "name", school.Name } });
+
+            var level = new Level { Name = levelInput.Text };
+            int levelId = level.FindOrInsert(new Dictionary<string, string> { { "name", level.Name } });
+
+            var course = new Course { Name = courseInput.Text };
+            int courseId = course.FindOrInsert(new Dictionary<string, string> { { "name", course.Name } });
+
+            var degree = new Degree { SchoolId = schoolId, LevelId = levelId, CourseId = courseId };
+            int degreeId = degree.FindOrInsert(new Dictionary<string, string> { { "school_id", degree.SchoolId.ToString() }, { "level_id", degree.LevelId.ToString() }, { "course_id", degree.CourseId.ToString() } });
+
+            var pivot = new EmployeeDegree();
+            pivot.DegreeId = degreeId;
+
             ListViewItem item = new ListViewItem(new string[] {
-                schoolInput.Text,
-                levelInput.Text,
-                courseInput.Text
+                school.Name,
+                level.Name,
+                course.Name
             });
+            item.Tag = pivot;
 
             degreesList.Items.Add(item);
+            this.ToBeAdded.Add(pivot);
         }
 
         private void degreesList_SelectedIndexChanged(object sender, EventArgs e)
