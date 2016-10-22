@@ -38,6 +38,7 @@ namespace CRM
                     employee.Name,
                     employee.Surname
                 });
+                item.Tag = employee;
 
                 employeesList.Items.Add(item);
             });
@@ -90,17 +91,8 @@ namespace CRM
             }
 
             var item = employeesList.SelectedItems[0];
-            var bsn = item.SubItems[0].Text;
-            Employee employee = new Employee().Find(bsn);
 
-            // Refresh list when item is not found
-            if (!employee.Exists)
-            {
-                this.LoadEmployeeListView();
-                return null;
-            }
-
-            return employee;
+            return (Employee) item.Tag;
         }
     }
 }

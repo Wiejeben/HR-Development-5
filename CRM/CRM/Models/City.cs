@@ -29,7 +29,7 @@ namespace CRM
         public City()
         {
             this.AutoIncrementColumn = "id";
-            this.PrimaryKey = "id";
+            this.IdentifyingKeys.Add("id");
             this.Builder.Table = "cities";
         }
     }

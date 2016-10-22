@@ -12,6 +12,8 @@ namespace CRM
 {
     public partial class AddEmployee : Form
     {
+        private List<Model> ToBeRemoved = new List<Model>();
+        private List<Model> ToBeAdded = new List<Model>();
         private Employee Employee;
 
         public AddEmployee()
@@ -42,8 +44,10 @@ namespace CRM
             // Addresses
             foreach (Address address in this.Employee.Addresses())
             {
+                var pivot = (AddressEmployee) address.Pivot;
+
                 ListViewItem item = new ListViewItem(new string[] {
-                    address.Pivot["residence"],
+                    pivot.Residence.ToString(),
                     address.PostalCode,
                     address.Addition,
                     address.Number.ToString(),
@@ -52,6 +56,7 @@ namespace CRM
                     address.Street.City.Province.Name,
                     address.Street.City.Province.Country.Name
                 });
+                item.Tag = address;
 
                 addressesList.Items.Add(item);
             }
@@ -64,6 +69,7 @@ namespace CRM
                     degree.Level.Name,
                     degree.Course.Name
                 });
+                item.Tag = degree;
 
                 degreesList.Items.Add(item);
             }
@@ -76,6 +82,7 @@ namespace CRM
                     position.Description,
                     position.HourFee.ToString()
                 });
+                item.Tag = position;
 
                 positionsList.Items.Add(item);
             }
@@ -94,6 +101,11 @@ namespace CRM
             employee.Surname = surnameInput.Text;
 
             employee.Save();
+
+            foreach (Model model in this.ToBeRemoved)
+            {
+                model.Pivot.Delete();
+            }
 
             this.Close();
         }
@@ -156,11 +168,6 @@ namespace CRM
             degreesList.Items.Add(item);
         }
 
-        private void removeDegreeButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void degreesList_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.UpdateDegreeActionButtons();
@@ -180,6 +187,59 @@ namespace CRM
         private void positionsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.UpdatePositionActionButtons();
+        }
+
+        private ListViewItem GetCurrentListViewItem(ListView list)
+        {
+            // No items selected
+            if (list.SelectedItems.Count <= 0)
+            {
+                return null;
+            }
+
+            return list.SelectedItems[0];
+        }
+
+        private void removeDegreeButton_Click(object sender, EventArgs e)
+        {
+            var item = this.GetCurrentListViewItem(degreesList);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            this.ToBeRemoved.Add((Degree) item.Tag);
+
+            item.Remove();
+        }
+
+        private void removePositionButton_Click(object sender, EventArgs e)
+        {
+            var item = this.GetCurrentListViewItem(positionsList);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            this.ToBeRemoved.Add((Position)item.Tag);
+
+            item.Remove();
+        }
+
+        private void removeAddressButton_Click(object sender, EventArgs e)
+        {
+            var item = this.GetCurrentListViewItem(addressesList);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            this.ToBeRemoved.Add((Address)item.Tag);
+
+            item.Remove();
         }
     }
 }

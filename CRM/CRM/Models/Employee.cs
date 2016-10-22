@@ -6,91 +6,6 @@ using System.Threading.Tasks;
 
 namespace CRM
 {
-    public class AddressEmployee : Model<AddressEmployee>
-    {
-        public int Bsn { get; set; }
-        public int AddressId { get; set; }
-        public bool Residence { get; set; }
-
-        private Address _address;
-        public Address Address
-        {
-            get
-            {
-                if (this._address == null)
-                {
-                    var address = new Address().Find(this.AddressId.ToString());
-                    address.Pivot = this.Builder.Columns(true);
-
-                    this._address = address;
-                }
-                
-                return this._address;
-            }
-        }
-
-        public AddressEmployee()
-        {
-            this.Builder.Table = "address_employee";
-        }
-    }
-
-    public class EmployeeDegree : Model<EmployeeDegree>
-    {
-        public int EmployeeBsn { get; set; }
-        public int DegreeId { get; set; }
-
-        private Degree _degree;
-        public Degree Degree
-        {
-            get
-            {
-                if (this._degree == null)
-                {
-                    var degree = new Degree().Find(this.DegreeId.ToString());
-                    degree.Pivot = this.Builder.Columns(true);
-
-                    this._degree = degree;
-                }
-
-                return this._degree;
-            }
-        }
-
-        public EmployeeDegree()
-        {
-            this.Builder.Table = "employee_degree";
-        }
-    }
-
-    public class EmployeePosition : Model<EmployeePosition>
-    {
-        public int Bsn { get; set; }
-        public int PositionId { get; set; }
-
-        private Position _position;
-        public Position Position
-        {
-            get
-            {
-                if (this._position == null)
-                {
-                    var position = new Position().Find(this.PositionId.ToString());
-                    position.Pivot = this.Builder.Columns(true);
-
-                    this._position = position;
-                }
-
-                return this._position;
-            }
-        }
-
-        public EmployeePosition()
-        {
-            this.Builder.Table = "employee_position";
-        }
-    }
-
     public class Employee : Model<Employee>
     {
         public int Bsn { get; set; }
@@ -99,7 +14,7 @@ namespace CRM
 
         public Employee()
         {
-            this.PrimaryKey = "bsn";
+            this.IdentifyingKeys.Add("bsn");
         }
 
         public List<Address> Addresses()
@@ -147,6 +62,97 @@ namespace CRM
             }
 
             return results;
+        }
+    }
+
+    public class AddressEmployee : Model<AddressEmployee>
+    {
+        public int Bsn { get; set; }
+        public int AddressId { get; set; }
+        public bool Residence { get; set; }
+
+        private Address _address;
+        public Address Address
+        {
+            get
+            {
+                if (this._address == null)
+                {
+                    var address = new Address().Find(this.AddressId.ToString());
+                    address.Pivot = this;
+
+                    this._address = address;
+                }
+
+                return this._address;
+            }
+        }
+
+        public AddressEmployee()
+        {
+            this.IdentifyingKeys.Add("bsn");
+            this.IdentifyingKeys.Add("address_id");
+            this.Builder.Table = "address_employee";
+        }
+    }
+
+    public class EmployeeDegree : Model<EmployeeDegree>
+    {
+        public int EmployeeBsn { get; set; }
+        public int DegreeId { get; set; }
+
+        private Degree _degree;
+        public Degree Degree
+        {
+            get
+            {
+                if (this._degree == null)
+                {
+                    var degree = new Degree().Find(this.DegreeId.ToString());
+                    degree.Pivot = this;
+
+                    this._degree = degree;
+                }
+
+                return this._degree;
+            }
+        }
+
+        public EmployeeDegree()
+        {
+            this.IdentifyingKeys.Add("employee_bsn");
+            this.IdentifyingKeys.Add("degree_id");
+            this.Builder.Table = "employee_degree";
+        }
+    }
+
+    public class EmployeePosition : Model<EmployeePosition>
+    {
+        public int Bsn { get; set; }
+        public int PositionId { get; set; }
+
+        private Position _position;
+        public Position Position
+        {
+            get
+            {
+                if (this._position == null)
+                {
+                    var position = new Position().Find(this.PositionId.ToString());
+                    position.Pivot = this;
+
+                    this._position = position;
+                }
+
+                return this._position;
+            }
+        }
+
+        public EmployeePosition()
+        {
+            this.IdentifyingKeys.Add("bsn");
+            this.IdentifyingKeys.Add("position_id");
+            this.Builder.Table = "employee_position";
         }
     }
 }

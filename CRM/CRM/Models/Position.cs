@@ -16,7 +16,7 @@ namespace CRM
         public Position()
         {
             this.AutoIncrementColumn = "id";
-            this.PrimaryKey = "id";
+            this.IdentifyingKeys.Add("id");
         }
     }
 }

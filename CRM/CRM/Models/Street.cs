@@ -29,7 +29,7 @@ namespace CRM
         public Street()
         {
             this.AutoIncrementColumn = "id";
-            this.PrimaryKey = "id";
+            this.IdentifyingKeys.Add("id");
         }
     }
 }

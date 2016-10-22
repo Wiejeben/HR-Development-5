@@ -197,8 +197,8 @@ namespace CRM
             }
             this.QueryString = this.QueryString.TrimEnd(new char[] { ',', ' ' });
             
-            // Which entry to update
-            this.QueryString += " WHERE `" + this.Builder.Model.PrimaryKey + "` = '" + this.Builder.Columns()[this.Builder.Model.PrimaryKey] + "'";
+            // Wheres
+            this.QueryString += this.BuildWheres();
 
             // End query
             this.QueryString += ";";

@@ -62,6 +62,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.countryInput = new System.Windows.Forms.TextBox();
             this.degrees = new System.Windows.Forms.TabPage();
+            this.removeDegreeButton = new System.Windows.Forms.Button();
             this.courseInput = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.levelInput = new System.Windows.Forms.TextBox();
@@ -87,7 +88,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
-            this.removeDegreeButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.addresses.SuspendLayout();
             this.degrees.SuspendLayout();
@@ -213,6 +213,7 @@
             this.removeAddressButton.TabIndex = 16;
             this.removeAddressButton.Text = "Remove";
             this.removeAddressButton.UseVisualStyleBackColor = true;
+            this.removeAddressButton.Click += new System.EventHandler(this.removeAddressButton_Click);
             // 
             // addAddress
             // 
@@ -396,6 +397,17 @@
             this.degrees.Text = "Degrees";
             this.degrees.UseVisualStyleBackColor = true;
             // 
+            // removeDegreeButton
+            // 
+            this.removeDegreeButton.Enabled = false;
+            this.removeDegreeButton.Location = new System.Drawing.Point(388, 336);
+            this.removeDegreeButton.Name = "removeDegreeButton";
+            this.removeDegreeButton.Size = new System.Drawing.Size(89, 23);
+            this.removeDegreeButton.TabIndex = 14;
+            this.removeDegreeButton.Text = "Remove";
+            this.removeDegreeButton.UseVisualStyleBackColor = true;
+            this.removeDegreeButton.Click += new System.EventHandler(this.removeDegreeButton_Click);
+            // 
             // courseInput
             // 
             this.courseInput.Location = new System.Drawing.Point(9, 135);
@@ -546,6 +558,7 @@
             this.removePositionButton.TabIndex = 15;
             this.removePositionButton.Text = "Remove";
             this.removePositionButton.UseVisualStyleBackColor = true;
+            this.removePositionButton.Click += new System.EventHandler(this.removePositionButton_Click);
             // 
             // addPositionButton
             // 
@@ -614,17 +627,6 @@
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-            // 
-            // removeDegreeButton
-            // 
-            this.removeDegreeButton.Enabled = false;
-            this.removeDegreeButton.Location = new System.Drawing.Point(388, 336);
-            this.removeDegreeButton.Name = "removeDegreeButton";
-            this.removeDegreeButton.Size = new System.Drawing.Size(89, 23);
-            this.removeDegreeButton.TabIndex = 14;
-            this.removeDegreeButton.Text = "Remove";
-            this.removeDegreeButton.UseVisualStyleBackColor = true;
-            this.removeDegreeButton.Click += new System.EventHandler(this.removeDegreeButton_Click);
             // 
             // AddEmployee
             // 

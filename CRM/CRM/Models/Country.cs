@@ -14,7 +14,7 @@ namespace CRM
         public Country()
         {
             this.AutoIncrementColumn = "id";
-            this.PrimaryKey = "id";
+            this.IdentifyingKeys.Add("id");
             this.Builder.Table = "countries";
         }
     }
