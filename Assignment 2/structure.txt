@@ -1,0 +1,38 @@
+employees
+	_id = bsn
+	name
+	surname
+	headquarter (ref)
+	addresses (ref)
+	residence (ref)
+	degrees (ref)
+	positions (ref)
+
+degrees
+	school
+	level
+	course
+
+positions
+	name
+	description
+	hour fee
+
+headquarters
+	name
+	number of rooms
+	monthly rent
+	address (ref)
+
+addresses
+	country
+	city
+	street
+	number
+	postalcode
+
+projects
+	budget
+	allocated hours
+	headquarter (ref)
+	positions (ref)
