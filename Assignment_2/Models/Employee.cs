@@ -53,12 +53,25 @@ namespace ConsoleApplication
 
         public static void Seed(int amount = 1)
         {
+            var employees = new List<Employee>();
+
             for (var i = 0; i < amount; i++)
             {
-                var employee = Employee.Factory();
-
-                Console.WriteLine("Generated an employee");
+                employees.Add(Employee.Factory());
             }
+
+            // Insert all employees
+            Employee.Db().Collection.InsertMany(employees);
+        }
+
+        public static void Clear()
+        {
+            Employee.Db().Clear();
+        }
+
+        private static Model<Employee> Db()
+        {
+            return new Model<Employee>("employees");
         }
     }
 }

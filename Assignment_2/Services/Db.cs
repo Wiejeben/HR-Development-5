@@ -8,9 +8,9 @@ namespace ConsoleApplication
     public class Db
     {
         private MongoClient Client;
-        private IMongoDatabase Database;
+        public IMongoDatabase Database;
 
-        public Db(string database = "assignment2")
+        public Db(string database = "assignment_2")
         {
             this.Client = new MongoClient();
             this.Database = this.Client.GetDatabase(database);
@@ -28,11 +28,6 @@ namespace ConsoleApplication
         public IMongoCollection<BsonDocument> Table(string table)
         {
             return this.Database.GetCollection<BsonDocument>(table);
-        }
-
-        public List<BsonDocument> Find(string table)
-        {
-            return this.Table(table).Find(new BsonDocument()).ToList();
         }
     }
 }

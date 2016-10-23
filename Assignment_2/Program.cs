@@ -4,9 +4,16 @@
     {
         public static void Main(string[] args)
         {
+            // Set seed number
             Faker.SetSeed(11);
 
-            Employee.Seed(1);
+            // Clear collections
+            Employee.Clear();
+            Project.Clear();
+
+            // Seed random data
+            Employee.Seed(10000);
+            Project.Seed(100);
         }
     }
 }
