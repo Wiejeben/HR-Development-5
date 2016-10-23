@@ -12,8 +12,8 @@
             Project.Clear();
 
             // Seed random data
+            Project.Seed(1000);
             Employee.Seed(10000);
-            Project.Seed(100);
         }
     }
 }

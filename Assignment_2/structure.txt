@@ -1,5 +1,5 @@
 employees
-	_id = bsn
+	_id
 	name
 	surname
 	headquarter
@@ -21,18 +21,28 @@ employees
 		school
 		level
 		course
+	
+	projects
+		project id
+		positions
+			name
+			description
+			hour fee
 
-	positions
-		name
-		description
-		hour fee
 
 projects
+	_id
 	budget
 	allocated hours
 	headquarter
 		name
 		number of rooms
 		monthly rent
-		address (ref)
-	positions (ref)
+		address
+			country
+			city
+			street
+			number
+			addition
+			postalcode
+			residence

@@ -12,7 +12,7 @@ namespace ConsoleApplication
 
             position.Name = Faker.EducationCourse;
             position.Description = Faker.Scentence;
-            position.HourFee = Faker.NumberBetween(20, 100);
+            position.HourFee = Faker.NumberBetween(1, 40);
 
             return position;
         }

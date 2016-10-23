@@ -1,17 +1,16 @@
-using System;
 using System.Collections.Generic;
 
 namespace ConsoleApplication
 {
-    public class Employee
+    public class Employee : Collection
     {
-        public int Bsn { get; set; }
+        public int _id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public Headquarter Headquarter { get; set; }
         public List<Address> Addresses { get; set; } = new List<Address>();
         public List<Degree> Degrees { get; set; } = new List<Degree>();
-        public List<Position> Positions { get; set; } = new List<Position>();
+        public List<ProjectReference> Projects { get; set; } = new List<ProjectReference>();
         private static int _autoIncrement = 1;
         public static int AutoIncrement
         {
@@ -25,7 +24,7 @@ namespace ConsoleApplication
         {
             var employee = new Employee();
 
-            employee.Bsn = Employee.AutoIncrement;
+            employee._id = Employee.AutoIncrement;
             employee.Name = Faker.FirstName;
             employee.Surname = Faker.LastName;
             employee.Headquarter = Headquarter.Factory();
@@ -33,19 +32,20 @@ namespace ConsoleApplication
             // Addresses
             for (var i = 0; i < Faker.NumberBetween(1, 4); i++)
             {
+                // First address will always be the residence
                 employee.Addresses.Add(Address.Factory((i == 0)));
             }
 
             // Degrees
-            for (var i = 0; i < Faker.NumberBetween(1, 4); i++)
+            for (var i = 0; i < Faker.NumberBetween(2, 4); i++)
             {
                 employee.Degrees.Add(Degree.Factory());
             }
 
-            // Positions
-            for (var i = 0; i < Faker.NumberBetween(2, 6); i++)
+            // Projects
+            for (var i = 0; i < Faker.NumberBetween(1, 4); i++)
             {
-                employee.Positions.Add(Position.Factory());
+                employee.Projects.Add(ProjectReference.Factory());
             }
 
             return employee;

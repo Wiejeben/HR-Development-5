@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace ConsoleApplication
