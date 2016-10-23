@@ -33,7 +33,7 @@ namespace ConsoleApplication
             // Addresses
             for (var i = 0; i < Faker.NumberBetween(1, 4); i++)
             {
-                employee.Addresses.Add(Address.Factory());
+                employee.Addresses.Add(Address.Factory((i == 0)));
             }
 
             // Degrees
