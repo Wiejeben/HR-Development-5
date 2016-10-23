@@ -52,7 +52,7 @@ namespace ConsoleApplication
             Project.Db().Clear();
         }
 
-        private static Model<Project> Db()
+        public static Model<Project> Db()
         {
             return new Model<Project>("projects");
         }

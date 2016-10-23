@@ -69,7 +69,7 @@ namespace ConsoleApplication
             Employee.Db().Clear();
         }
 
-        private static Model<Employee> Db()
+        public static Model<Employee> Db()
         {
             return new Model<Employee>("employees");
         }
