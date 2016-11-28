@@ -20,41 +20,49 @@ namespace ConsoleApplication
             Project.Seed(1000);
             Employee.Seed(10000);
 
-            // GET all employees
-            // GET all projects
+            // Calculate total amount of hours per employees
+            var db = new Db();
+            var employees = db.Table("employees");
+            
+            // Get only the employees that are working more dan 20 hours
+            BsonJavaScript map = @"function() {
+                this.Projects.forEach(function(project) {
+                    var projectId = project.ProjectId;
+                    var hours = 0;
 
-            // var projects = Project.Db().Collection;
+                    project.Positions.forEach(function(position) {
+                        hours += position.Hours;
+                    });
 
-            // // Calculate total amount of hours per employees
+                    if(hours > 20) {
+                        emit(projectId, {count : 1}); 
+                    }
+                })
+            }";
 
-            // //Mapper function for the collection
-			// BsonJavaScript map = @"function() {
-            //     emit(this._id, this._id);
-            // }";
+            // Group the overworking employees by project_id
+            BsonJavaScript reduce = @"function(key, values) {
+                var result = {count: 0};
+                values.forEach(
+                    function(value) {
+                        result.count ++;
+                    }
+                );
+                return result;
+            }";
 
-			// //Reduce function which does nothing than returning the result 
-			// BsonJavaScript reduce = @"function(key, results) {
+            // Set the MapReduce options
+            var options = new MapReduceOptions<BsonDocument, BsonDocument>();
+            options.OutputOptions = MapReduceOutputOptions.Inline;
 
-            //     return 20;
-            // }";
+            // Excute map and reduce functions 
+            var resultMR = employees.MapReduce(map, reduce, options).ToList();
 
-			// //Options for the result of the output
-			// var options = new MapReduceOptions<Project, BsonDocument> ();
-			// options.OutputOptions = MapReduceOutputOptions.Inline;
-
-			// //Excute map and reduce functions 
-			// BsonDocument results = projects.MapReduce (map, reduce, options).First();
-
-			// //print first result only  
-			// Console.WriteLine(results);
-
-
-            // // SUM total amount of working hours
-
-            // // IF total amount of hours is more then 20
-            // // +1 Dictionary<Project, int> where Project ObjectId is the same
-
-            // // Foreach results
+            // Print the results
+            foreach (var result in resultMR)
+            {
+                Console.WriteLine("Project: " + result["_id"] + " has " + result["value"]["count"] + " overworking employees");
+            }
         }
     }
 }
